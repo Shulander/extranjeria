@@ -33,8 +33,29 @@ public class ScenarioGenerator implements CommandLineRunner {
 
 
     @Override
-    public void run(String... args) throws IOException, InterruptedException {
-        log.info("Run!!!!");
+    public void run(String... args) throws IOException {
+        log.info("Start!!!!");
+        loginPage();
+        bienvenidoPage();
+        seleccionarTramitePage();
+        antecedentesGeneralesPage();
+        requisitosBasicosPage();
+        datosUsuarioPage();
+        reservaEnCalendarioPage();
+    }
+
+
+    private void bienvenidoPage() throws IOException {
+        log.info("Start Bienvenido");
+        HtmlAnchor reservarHora = (HtmlAnchor) htmlPage.getElementById("btnReservarHora");
+        htmlPage = reservarHora.click();
+        log.info("Finish Bienvenido");
+    }
+
+
+    private void loginPage() throws IOException {
+        log.info("Start Login");
+        htmlPage = webClient.getPage(START_PAGE);
         HtmlTextInput username = htmlPage.getElementByName("j_username");
         HtmlPasswordInput password = htmlPage.getElementByName("j_password");
         HtmlSubmitInput submit = htmlPage.getElementByName("Ingresar");
@@ -43,15 +64,7 @@ public class ScenarioGenerator implements CommandLineRunner {
         htmlPage = submit.click();
         HtmlSpan myName = (HtmlSpan) htmlPage.getElementById("spanDetalle");
         log.info("logged: " + myName.asText());
-
-        HtmlAnchor reservarHora = (HtmlAnchor) htmlPage.getElementById("btnReservarHora");
-        htmlPage = reservarHora.click();
-
-        seleccionarTramitePage();
-        antecedentesGeneralesPage();
-        requisitosBasicosPage();
-        datosUsuarioPage();
-        reservaEnCalendarioPage();
+        log.info("Finish Login");
     }
 
 
@@ -68,7 +81,7 @@ public class ScenarioGenerator implements CommandLineRunner {
     private boolean nextPage() throws IOException {
         HtmlButton htmlButton = null;
         while (htmlButton == null) {
-            log.info("Next Button is null... waiting");
+            log.debug("Next Button is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             htmlButton = (HtmlButton) htmlPage.getElementById("btnNext");
         }
@@ -83,7 +96,7 @@ public class ScenarioGenerator implements CommandLineRunner {
     private void checkAvailableTimes() {
         List<HtmlDivision> htmlButtons = Collections.emptyList();
         while (htmlButtons.isEmpty()) {
-            log.info("div elements is null... waiting");
+            log.debug("div elements is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             htmlButtons = htmlPage.getByXPath(
                     "//div[@class='fc-event fc-event-vert fc-event-start fc-event-end']");
@@ -106,7 +119,7 @@ public class ScenarioGenerator implements CommandLineRunner {
     private HtmlButton getPreviousHtmlButton() {
         HtmlButton htmlButton = null;
         while (htmlButton == null) {
-            log.info("Previous Button is null... waiting");
+            log.debug("Previous Button is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             htmlButton = (HtmlButton) htmlPage.getElementById("btnPrev");
         }
@@ -119,7 +132,7 @@ public class ScenarioGenerator implements CommandLineRunner {
 
         List<HtmlButton> htmlButtons = Collections.emptyList();
         while (htmlButtons.isEmpty()) {
-            log.info("dialog button is null... waiting");
+            log.debug("dialog button is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             htmlButtons = htmlPage.getByXPath(
                     "//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only']");
@@ -129,7 +142,7 @@ public class ScenarioGenerator implements CommandLineRunner {
 
         HtmlButton nextPageButton = null;
         for (int i = 0; nextPageButton == null && i < 10; i++) {
-            log.info("next button is null... waiting");
+            log.debug("next button is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             nextPageButton = (HtmlButton) htmlPage.getElementById("btnSiguienteDU");
         }
@@ -158,7 +171,7 @@ public class ScenarioGenerator implements CommandLineRunner {
 
         HtmlRadioButtonInput opcionRadio1 = null;
         while (opcionRadio1 == null) {
-            log.info("radio button option is null... waiting");
+            log.debug("radio button option is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             opcionRadio1 = (HtmlRadioButtonInput) htmlPage.getElementById("opcionRadio1");
         }
@@ -176,7 +189,7 @@ public class ScenarioGenerator implements CommandLineRunner {
         log.info("Start Antecedentes Generales");
         HtmlButton nextPageButton = null;
         while (nextPageButton == null) {
-            log.info("next button is null... waiting");
+            log.debug("next button is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             nextPageButton = (HtmlButton) htmlPage.getElementById("btnSiguienteAG");
         }
@@ -201,7 +214,7 @@ public class ScenarioGenerator implements CommandLineRunner {
                 selectedOptionComunas = comunasST.getOptionByText("LAS CONDES");
                 htmlPage = (HtmlPage) selectedOptionComunas.setSelected(true);
             } catch (ElementNotFoundException ex) {
-                log.info("element not found... waiting");
+                log.debug("element not found... waiting");
                 webClient.waitForBackgroundJavaScript(60000);
             }
         }
@@ -222,7 +235,7 @@ public class ScenarioGenerator implements CommandLineRunner {
                 "//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only " +
                 "ui-state-focus']");
         while (htmlButtons.isEmpty()) {
-            log.info("dialog button is null... waiting");
+            log.debug("dialog button is null... waiting");
             webClient.waitForBackgroundJavaScript(60000);
             htmlButtons = htmlPage.getByXPath(
                     "//button[@class='ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only " +
@@ -247,6 +260,5 @@ public class ScenarioGenerator implements CommandLineRunner {
 //                return true;
 //            }
 //        });
-        htmlPage = webClient.getPage(START_PAGE);
     }
 }
