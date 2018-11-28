@@ -4,6 +4,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -52,8 +53,19 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
             htmlButtons = htmlPage.getByXPath(
                     "//div[@class='fc-event fc-event-vert fc-event-start fc-event-end']");
         }
+        printDateTitle();
         for (HtmlDivision htmlDivision : htmlButtons) {
             log.info(htmlDivision.asText());
+        }
+    }
+
+
+    private void printDateTitle() {
+        List<HtmlSpan> titleSpan= htmlPage.getByXPath("//span[@class='fc-header-title']");
+        if(!titleSpan.isEmpty()) {
+            log.info("*******************************");
+            log.info(titleSpan.iterator().next().asText());
+            log.info("*******************************");
         }
     }
 
