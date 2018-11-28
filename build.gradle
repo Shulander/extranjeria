@@ -1,3 +1,5 @@
+defaultTasks 'clean', 'build'
+
 buildscript {
     ext {
         springBootVersion = '1.5.17.RELEASE'
