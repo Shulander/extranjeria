@@ -5,7 +5,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class StartPage extends BasePageNavigation {
+class StartPage extends BasePageNavigation {
 
     public StartPage(HtmlPage htmlPage, WebClient webClient) {
         super(htmlPage, webClient);
