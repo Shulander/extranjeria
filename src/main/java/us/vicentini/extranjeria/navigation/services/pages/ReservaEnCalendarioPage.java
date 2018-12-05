@@ -1,11 +1,15 @@
-package us.vicentini.extranjeria.services.navigation;
+package us.vicentini.extranjeria.navigation.services.pages;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import us.vicentini.extranjeria.navigation.domain.TimeWindow;
+import us.vicentini.extranjeria.navigation.services.TimeWindowListener;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -14,6 +18,10 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 class ReservaEnCalendarioPage extends BasePageNavigation {
+
+    @Setter
+    private TimeWindowListener[] timeWindowListener;
+
     ReservaEnCalendarioPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
         super(htmlPage, webClient, navigationFactory);
     }
@@ -53,18 +61,43 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
             htmlButtons = htmlPage.getByXPath(
                     "//div[@class='fc-event fc-event-vert fc-event-start fc-event-end']");
         }
-        printDateTitle();
+        String title = getDataTitle();
+        printDateTitle(title);
         for (HtmlDivision htmlDivision : htmlButtons) {
-            log.info(htmlDivision.asText());
+            TimeWindow timeWindow = parseTime(title, htmlDivision.asText());
+            log.info(timeWindow.toString());
+            notifyListeners(timeWindow);
         }
     }
 
 
-    private void printDateTitle() {
+    private void notifyListeners(TimeWindow timeWindow) {
+        if(timeWindowListener != null) {
+            for (TimeWindowListener windowListener : timeWindowListener) {
+                windowListener.publish(timeWindow);
+            }
+        }
+    }
+
+
+    private TimeWindow parseTime(String title, String hour) {
+        String[] array = hour.split(" - ");
+        return new TimeWindow(title, array[0], array[1]);
+    }
+
+    private String getDataTitle() {
         List<HtmlSpan> titleSpan= htmlPage.getByXPath("//span[@class='fc-header-title']");
         if(!titleSpan.isEmpty()) {
+            return titleSpan.iterator().next().asText();
+        }
+        return null;
+    }
+
+
+    private void printDateTitle(String title) {
+        if(!StringUtils.isEmpty(title)) {
             log.info("*******************************");
-            log.info(titleSpan.iterator().next().asText());
+            log.info(title);
             log.info("*******************************");
         }
     }

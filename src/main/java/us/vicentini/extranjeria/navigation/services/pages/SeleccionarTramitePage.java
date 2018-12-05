@@ -1,4 +1,4 @@
-package us.vicentini.extranjeria.services.navigation;
+package us.vicentini.extranjeria.navigation.services.pages;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.WebClient;

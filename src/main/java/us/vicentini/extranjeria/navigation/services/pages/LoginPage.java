@@ -1,7 +1,11 @@
-package us.vicentini.extranjeria.services.navigation;
+package us.vicentini.extranjeria.navigation.services.pages;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.*;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 

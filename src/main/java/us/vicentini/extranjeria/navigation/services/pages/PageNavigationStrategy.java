@@ -1,4 +1,4 @@
-package us.vicentini.extranjeria.services.navigation;
+package us.vicentini.extranjeria.navigation.services.pages;
 
 import java.io.IOException;
 import java.util.Iterator;

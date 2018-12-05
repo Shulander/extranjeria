@@ -1,4 +1,4 @@
-package us.vicentini.extranjeria.services;
+package us.vicentini.extranjeria.navigation.services;
 
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -6,8 +6,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
-import us.vicentini.extranjeria.services.navigation.NavigationFactory;
-import us.vicentini.extranjeria.services.navigation.PageNavigationStrategy;
+import us.vicentini.extranjeria.navigation.services.pages.NavigationFactory;
+import us.vicentini.extranjeria.navigation.services.pages.PageNavigationStrategy;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;

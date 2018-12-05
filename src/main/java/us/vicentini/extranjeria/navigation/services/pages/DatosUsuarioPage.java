@@ -1,4 +1,4 @@
-package us.vicentini.extranjeria.services.navigation;
+package us.vicentini.extranjeria.navigation.services.pages;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
