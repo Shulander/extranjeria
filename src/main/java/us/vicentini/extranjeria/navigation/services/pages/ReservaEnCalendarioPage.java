@@ -29,12 +29,12 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
 
     @Override
     protected void navigateImpl() throws IOException {
-        log.info("Start Reserva En Calendario");
+        log.debug("Start Reserva En Calendario");
         clickPreviousIfAvailable();
         do {
             checkAvailableTimes();
         } while (nextPage());
-        log.info("Finish Reserva En Calendario");
+        log.debug("Finish Reserva En Calendario");
     }
 
 
@@ -65,7 +65,7 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
         printDateTitle(title);
         for (HtmlDivision htmlDivision : htmlButtons) {
             TimeWindow timeWindow = parseTime(title, htmlDivision.asText());
-            log.info(timeWindow.toString());
+            log.debug(timeWindow.toString());
             notifyListeners(timeWindow);
         }
     }
@@ -96,9 +96,9 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
 
     private void printDateTitle(String title) {
         if(!StringUtils.isEmpty(title)) {
-            log.info("*******************************");
-            log.info(title);
-            log.info("*******************************");
+            log.debug("*******************************");
+            log.debug(title);
+            log.debug("*******************************");
         }
     }
 

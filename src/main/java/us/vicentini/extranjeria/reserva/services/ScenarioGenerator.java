@@ -15,10 +15,13 @@ public class ScenarioGenerator implements CommandLineRunner {
 
     private final ReservaHoraExtranjeriaService reservaHoraExtranjeriaService;
 
+    private final AcumulatorTimeWindowService acumulatorTimeWindowService;
+
 
     @Override
     public void run(String... args) throws IOException {
         log.info("Start!!!!");
         reservaHoraExtranjeriaService.checkAvailableHour();
+        acumulatorTimeWindowService.print();
     }
 }
