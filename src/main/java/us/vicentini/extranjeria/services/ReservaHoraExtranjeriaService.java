@@ -1,26 +1,32 @@
-package us.vicentini.extranjeria.services.navigation;
+package us.vicentini.extranjeria.services;
 
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Service;
+import us.vicentini.extranjeria.services.navigation.NavigationFactory;
+import us.vicentini.extranjeria.services.navigation.PageNavigationStrategy;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
 @Log4j
 @Service
+@RequiredArgsConstructor
 public class ReservaHoraExtranjeriaService {
     private static final String START_PAGE = "https://reservahora.extranjeria.gob.cl/inicio.action";
 
     private volatile WebClient webClient;
 
+    private final NavigationFactory navigationFactory;
+
     public void checkAvailableHour() throws IOException {
         log.info("++++ ReservaHoraExtranjeria ++++");
         HtmlPage htmlPage = webClient.getPage(START_PAGE);
 
-        PageNavigationStrategy page = new StartPage(htmlPage, webClient);
+        PageNavigationStrategy page = navigationFactory.getStartPage(htmlPage, webClient);
         while (page.hasNext()) {
             page = page.next();
             page.navigate();

@@ -15,7 +15,7 @@ abstract class BasePageNavigation implements PageNavigationStrategy {
     @NonNull
     protected HtmlPage htmlPage;
     protected final WebClient webClient;
-
+    protected final NavigationFactory navigationFactory;
 
     @Override
     public final void navigate() throws IOException {

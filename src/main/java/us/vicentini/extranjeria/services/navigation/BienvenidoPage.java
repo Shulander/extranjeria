@@ -10,8 +10,8 @@ import java.io.IOException;
 @Slf4j
 class BienvenidoPage extends BasePageNavigation {
 
-    BienvenidoPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    BienvenidoPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
@@ -26,6 +26,6 @@ class BienvenidoPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new SeleccionarTramitePage(htmlPage, webClient);
+        return navigationFactory.getSeleccionarTramitePage(htmlPage, webClient);
     }
 }

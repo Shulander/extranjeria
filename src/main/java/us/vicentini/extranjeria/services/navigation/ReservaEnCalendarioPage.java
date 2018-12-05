@@ -14,8 +14,8 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 class ReservaEnCalendarioPage extends BasePageNavigation {
-    ReservaEnCalendarioPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    ReservaEnCalendarioPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 

@@ -13,8 +13,8 @@ import java.util.List;
 
 @Slf4j
 class SeleccionarTramitePage extends BasePageNavigation {
-    SeleccionarTramitePage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    SeleccionarTramitePage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
@@ -68,6 +68,6 @@ class SeleccionarTramitePage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new AntecedentesGeneralesPage(htmlPage, webClient);
+        return navigationFactory.getAntecedentesGeneralesPage(htmlPage, webClient);
     }
 }

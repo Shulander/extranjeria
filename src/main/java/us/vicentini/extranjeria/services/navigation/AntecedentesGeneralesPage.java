@@ -9,8 +9,8 @@ import java.io.IOException;
 
 @Slf4j
 class AntecedentesGeneralesPage extends BasePageNavigation {
-    AntecedentesGeneralesPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    AntecedentesGeneralesPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
@@ -30,6 +30,6 @@ class AntecedentesGeneralesPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new RequisitosBasicosPage(htmlPage, webClient);
+        return navigationFactory.getRequisitosBasicosPage(htmlPage, webClient);
     }
 }

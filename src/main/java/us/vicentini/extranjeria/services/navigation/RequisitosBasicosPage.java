@@ -10,8 +10,8 @@ import java.io.IOException;
 
 @Slf4j
 class RequisitosBasicosPage extends BasePageNavigation {
-    RequisitosBasicosPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    RequisitosBasicosPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
@@ -36,6 +36,6 @@ class RequisitosBasicosPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new DatosUsuarioPage(htmlPage, webClient);
+        return navigationFactory.getDatosUsuarioPage(htmlPage, webClient);
     }
 }

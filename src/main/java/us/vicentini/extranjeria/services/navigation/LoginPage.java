@@ -1,11 +1,8 @@
 package us.vicentini.extranjeria.services.navigation;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.*;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -13,19 +10,24 @@ import java.io.IOException;
 @Slf4j
 class LoginPage extends BasePageNavigation {
 
-    LoginPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    @Setter
+    private String username;
+    @Setter
+    private String password;
+
+    LoginPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
     @Override
     protected void navigateImpl() throws IOException {
         log.info("Start Login");
-        HtmlTextInput username = htmlPage.getElementByName("j_username");
-        HtmlPasswordInput password = htmlPage.getElementByName("j_password");
+        HtmlTextInput usernameInput = htmlPage.getElementByName("j_username");
+        HtmlPasswordInput passwordInput = htmlPage.getElementByName("j_password");
         HtmlSubmitInput submit = htmlPage.getElementByName("Ingresar");
-        username.setText("");
-        password.setText("");
+        usernameInput.setText(username);
+        passwordInput.setText(password);
         htmlPage = submit.click();
         HtmlSpan myName = (HtmlSpan) htmlPage.getElementById("spanDetalle");
         log.info("logged: " + myName.asText());
@@ -35,7 +37,7 @@ class LoginPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new BienvenidoPage(htmlPage, webClient);
+        return navigationFactory.getBienvenidoPage(htmlPage, webClient);
     }
 
 }

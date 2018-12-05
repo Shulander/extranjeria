@@ -5,10 +5,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class StartPage extends BasePageNavigation {
+public class StartPage extends BasePageNavigation {
 
-    public StartPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    public StartPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
@@ -20,7 +20,7 @@ class StartPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new LoginPage(htmlPage, webClient);
+        return navigationFactory.getLoginPage(htmlPage, webClient);
     }
 
 }

@@ -12,8 +12,8 @@ import java.util.List;
 
 @Slf4j
 class DatosUsuarioPage extends BasePageNavigation {
-    DatosUsuarioPage(HtmlPage htmlPage, WebClient webClient) {
-        super(htmlPage, webClient);
+    DatosUsuarioPage(HtmlPage htmlPage, WebClient webClient, NavigationFactory navigationFactory) {
+        super(htmlPage, webClient, navigationFactory);
     }
 
 
@@ -59,6 +59,6 @@ class DatosUsuarioPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return new ReservaEnCalendarioPage(htmlPage, webClient);
+        return navigationFactory.getReservaEnCalendarioPage(htmlPage, webClient);
     }
 }
