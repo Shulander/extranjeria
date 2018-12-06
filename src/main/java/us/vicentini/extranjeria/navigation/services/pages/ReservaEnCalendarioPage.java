@@ -29,12 +29,12 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
 
     @Override
     protected void navigateImpl() throws IOException {
-        log.debug("Start Reserva En Calendario");
+        log.info("Start Reserva En Calendario");
         clickPreviousIfAvailable();
         do {
             checkAvailableTimes();
         } while (nextPage());
-        log.debug("Finish Reserva En Calendario");
+        log.info("Finish Reserva En Calendario");
     }
 
 

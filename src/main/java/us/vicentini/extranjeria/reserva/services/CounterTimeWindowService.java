@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Slf4j
 @Service
-public class CounterTimeWindowService implements TimeWindowListener {
+class CounterTimeWindowService implements TimeWindowListener {
     private Map<String, List<TimeWindow>> statusCounter;
 
     @PostConstruct

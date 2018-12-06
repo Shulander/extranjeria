@@ -8,6 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import us.vicentini.extranjeria.navigation.services.ReservaHoraExtranjeriaService;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +28,15 @@ public class ReservaHoraService {
     @Setter(onMethod_ = @Value("#{'${reserva.invalidStatus}'.split(',')}"))
     private List<String> invalidStatus;
 
+    @PostConstruct
+    public void init() {
+        telegramNotification.sendMessage("Application has started");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        telegramNotification.sendMessage("Application has been terminated");
+    }
 
     @Scheduled(fixedDelay = 300000, initialDelay = 10000)
     public void scheduledRun() {
