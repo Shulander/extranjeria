@@ -19,7 +19,7 @@ public class NavigationFactory {
     @Setter(onMethod_ = {@Value("${login.password}")})
     private String password;
 
-    @Setter(onMethod_ = {@Autowired})
+    @Setter(onMethod_ = {@Autowired(required = false)})
     private TimeWindowListener[] timeWindowListener;
 
 

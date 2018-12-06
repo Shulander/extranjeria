@@ -28,9 +28,9 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter")
+    compile 'com.github.ulisesbocchio:jasypt-spring-boot-starter:1.18'
 //    implementation('org.springframework.boot:spring-boot-starter-web')
     compile 'net.sourceforge.htmlunit:htmlunit:2.33'
-//    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
     compileOnly('org.projectlombok:lombok')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
