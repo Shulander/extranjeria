@@ -1,12 +1,14 @@
 package us.vicentini.extranjeria.reserva.services;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 @Slf4j
 @Service
@@ -24,7 +26,7 @@ public class TelegramNotification implements Notification {
         }
     }
 
-    public String executeGet(String urlToRead) throws Exception {
+    private String executeGet(String urlToRead) throws IOException {
         StringBuilder result = new StringBuilder();
         URL url = new URL(urlToRead);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();

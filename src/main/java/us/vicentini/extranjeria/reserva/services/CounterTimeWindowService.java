@@ -1,14 +1,16 @@
 package us.vicentini.extranjeria.reserva.services;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import us.vicentini.extranjeria.navigation.domain.TimeWindow;
 import us.vicentini.extranjeria.navigation.services.TimeWindowListener;
+
+import javax.annotation.PostConstruct;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -41,5 +43,10 @@ public class CounterTimeWindowService implements TimeWindowListener {
             }
             log.info("*************************");
         }
+    }
+
+
+    public Set<String> getStatus() {
+        return statusCounter.keySet();
     }
 }

@@ -2,6 +2,7 @@ package us.vicentini.extranjeria.navigation.services.pages;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,7 +21,12 @@ public class StartPage extends BasePageNavigation {
 
     @Override
     public PageNavigationStrategy next() {
-        return navigationFactory.getLoginPage(htmlPage, webClient);
+        HtmlSpan myName = (HtmlSpan) htmlPage.getElementById("spanDetalle");
+        if(myName == null) {
+            return navigationFactory.getLoginPage(htmlPage, webClient);
+        } else {
+            return navigationFactory.getBienvenidoPage(htmlPage, webClient);
+        }
     }
 
 }

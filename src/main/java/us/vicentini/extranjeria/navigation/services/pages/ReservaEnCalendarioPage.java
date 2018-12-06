@@ -82,7 +82,7 @@ class ReservaEnCalendarioPage extends BasePageNavigation {
 
     private TimeWindow parseTime(String title, String hour) {
         String[] array = hour.split(" - ");
-        return new TimeWindow(title, array[0], array[1]);
+        return new TimeWindow(title, array[0].trim(), array[1].trim());
     }
 
     private String getDataTitle() {
