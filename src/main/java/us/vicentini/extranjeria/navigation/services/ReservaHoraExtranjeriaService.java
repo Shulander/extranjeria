@@ -1,5 +1,6 @@
 package us.vicentini.extranjeria.navigation.services;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -23,21 +24,26 @@ public class ReservaHoraExtranjeriaService {
     private final NavigationFactory navigationFactory;
 
     public void checkAvailableHour() throws IOException {
-        log.info("++++ ReservaHoraExtranjeria ++++");
-        HtmlPage htmlPage = webClient.getPage(START_PAGE);
+        try {
+            log.info("++++ ReservaHoraExtranjeria ++++");
+            HtmlPage htmlPage = webClient.getPage(START_PAGE);
 
-        PageNavigationStrategy page = navigationFactory.getStartPage(htmlPage, webClient);
-        while (page.hasNext()) {
-            page = page.next();
-            page.navigate();
+            PageNavigationStrategy page = navigationFactory.getStartPage(htmlPage, webClient);
+            while (page.hasNext()) {
+                page = page.next();
+                page.navigate();
+            }
+        } finally {
+            log.info("---- ReservaHoraExtranjeria ----");
         }
-        log.info("---- ReservaHoraExtranjeria ----");
     }
 
 
     @PostConstruct
     public void init() {
-        webClient = new WebClient();
+        webClient = new WebClient(BrowserVersion.FIREFOX_60);
+        webClient.getOptions().setTimeout(600000);
+        webClient.getOptions().setDownloadImages(false);
         webClient.getOptions().setCssEnabled(false);
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
     }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 @Slf4j
 @Service
@@ -20,7 +21,7 @@ public class TelegramNotification implements Notification {
     @Override
     public void sendMessage(String msg) {
         try {
-            log.info(executeGet(botUrl+msg));
+            log.info(executeGet(botUrl + URLEncoder.encode(msg, "UTF-8" )));
         } catch (Exception e) {
             log.error("Error sending Whatsapp message: "+e.getMessage(), e);
         }
