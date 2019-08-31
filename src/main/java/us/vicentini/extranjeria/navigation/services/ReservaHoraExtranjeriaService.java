@@ -5,7 +5,7 @@ import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import us.vicentini.extranjeria.navigation.services.pages.NavigationFactory;
 import us.vicentini.extranjeria.navigation.services.pages.PageNavigationStrategy;
@@ -13,7 +13,7 @@ import us.vicentini.extranjeria.navigation.services.pages.PageNavigationStrategy
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-@Log4j
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReservaHoraExtranjeriaService {
